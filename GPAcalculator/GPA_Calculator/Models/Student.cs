@@ -11,6 +11,6 @@ namespace GPA_Calculator.Models
         public string PersonalNumber { get; set; }
         public string CourseName { get; set; }
 
-        public virtual ICollection<Subject> subject { get; set;}
+        public virtual ICollection<Grade> grade { get; set;}
     }
 }

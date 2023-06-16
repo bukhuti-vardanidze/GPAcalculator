@@ -12,14 +12,17 @@ namespace GPA_Calculator.Controllers
     {
         private readonly IStudentRepository _studentRepository;
         private readonly ISubjectRepository _subjectRepository;
+        private readonly IGradeRepository _gradeRepository;
 
         public MainController(
             IStudentRepository studentRepository,
-            ISubjectRepository subjectRepository
+            ISubjectRepository subjectRepository,
+            IGradeRepository gradeRepository
             )
         {
             _studentRepository = studentRepository;
             _subjectRepository = subjectRepository;
+            _gradeRepository = gradeRepository;
         }
 
         [HttpPost("student")]
@@ -40,6 +43,19 @@ namespace GPA_Calculator.Controllers
         {
             var result =await _subjectRepository.RegisterSubject(register);
 
+            if (result == null)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPost("grade")]
+        public async Task<IActionResult> RegisterGrade([FromQuery]RegisterGrade register)
+        {
+            var result = await _gradeRepository.RegisterGrade(register);
+            
             if (result == null)
             {
                 return BadRequest(result);

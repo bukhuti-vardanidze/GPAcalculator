@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GPA_Calculator.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230616103825_Initial")]
+    [Migration("20230616200701_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -58,10 +58,15 @@ namespace GPA_Calculator.Migrations
                     b.Property<double>("Score")
                         .HasColumnType("float");
 
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
 
                     b.HasIndex("SubjectId");
 
@@ -108,22 +113,23 @@ namespace GPA_Calculator.Migrations
                     b.Property<int>("Credits")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SubjectName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StudentId");
-
                     b.ToTable("Subjects");
                 });
 
             modelBuilder.Entity("GPA_Calculator.Models.Grade", b =>
                 {
+                    b.HasOne("GPA_Calculator.Models.Student", "student")
+                        .WithMany("grade")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("GPA_Calculator.Models.Subject", "Subject")
                         .WithMany("Grade")
                         .HasForeignKey("SubjectId")
@@ -131,22 +137,13 @@ namespace GPA_Calculator.Migrations
                         .IsRequired();
 
                     b.Navigation("Subject");
-                });
-
-            modelBuilder.Entity("GPA_Calculator.Models.Subject", b =>
-                {
-                    b.HasOne("GPA_Calculator.Models.Student", "student")
-                        .WithMany("subject")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("student");
                 });
 
             modelBuilder.Entity("GPA_Calculator.Models.Student", b =>
                 {
-                    b.Navigation("subject");
+                    b.Navigation("grade");
                 });
 
             modelBuilder.Entity("GPA_Calculator.Models.Subject", b =>

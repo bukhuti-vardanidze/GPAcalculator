@@ -21,7 +21,7 @@ namespace GPA_Calculator.Repositories
         {
             var subject = new Subject()
             {
-                StudentId = register.StudentId,
+              //  StudentId = register.StudentId,
                 SubjectName = register.SubjectName,
                 Credits = register.Credits
             };

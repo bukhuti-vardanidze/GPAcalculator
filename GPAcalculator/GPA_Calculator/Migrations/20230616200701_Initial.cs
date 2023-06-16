@@ -48,19 +48,12 @@ namespace GPA_Calculator.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StudentId = table.Column<int>(type: "int", nullable: false),
                     SubjectName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Credits = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Subjects", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Subjects_Students_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,11 +63,18 @@ namespace GPA_Calculator.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SubjectId = table.Column<int>(type: "int", nullable: false),
+                    StudentId = table.Column<int>(type: "int", nullable: false),
                     Score = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Grades", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Grades_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Grades_Subjects_SubjectId",
                         column: x => x.SubjectId,
@@ -84,14 +84,14 @@ namespace GPA_Calculator.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Grades_StudentId",
+                table: "Grades",
+                column: "StudentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Grades_SubjectId",
                 table: "Grades",
                 column: "SubjectId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Subjects_StudentId",
-                table: "Subjects",
-                column: "StudentId");
         }
 
         /// <inheritdoc />
@@ -104,10 +104,10 @@ namespace GPA_Calculator.Migrations
                 name: "Grades");
 
             migrationBuilder.DropTable(
-                name: "Subjects");
+                name: "Students");
 
             migrationBuilder.DropTable(
-                name: "Students");
+                name: "Subjects");
         }
     }
 }

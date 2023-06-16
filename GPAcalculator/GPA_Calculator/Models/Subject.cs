@@ -7,13 +7,13 @@ namespace GPA_Calculator.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        public int StudentId { get; set; }
+        //[Required]
+        //public int StudentId { get; set; }
         public string SubjectName { get; set; }
         public int Credits { get; set; }
 
-        [ForeignKey("StudentId")]
-        public virtual Student student { get; set; }
+        //[ForeignKey("StudentId")]
+        //public virtual Student student { get; set; }
 
         public virtual ICollection<Grade> Grade { get; set; }
     }
