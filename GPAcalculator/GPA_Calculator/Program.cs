@@ -13,11 +13,12 @@ builder.Services.AddControllers()
      .AddJsonOptions(options =>
      {
          options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+        // options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
          options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
      });
 
 builder.Services.AddScoped<IStudentRepository,StudentRepository>();
+builder.Services.AddScoped<ISubjectRepository,SubjectRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
