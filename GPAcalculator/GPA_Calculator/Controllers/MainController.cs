@@ -64,5 +64,18 @@ namespace GPA_Calculator.Controllers
             return Ok(result);
         }
 
+        [HttpGet("/student/{Id}/grades")]
+        public async Task<IActionResult> GetStudentGrade([FromRoute] int Id)
+        {
+            var result =await _gradeRepository.GetStudentGrade(Id);
+            
+            if (result == null)
+            {
+                return NotFound(result);
+            }
+
+            return Ok(result);
+        }
+
     }
 }
