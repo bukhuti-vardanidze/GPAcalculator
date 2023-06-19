@@ -1,4 +1,6 @@
-﻿using GPA_Calculator.Models;
+﻿using GPA_Calculator.CalculorGpa;
+using GPA_Calculator.GPAcalculator;
+using GPA_Calculator.Models;
 using GPA_Calculator.Repositories;
 using GPA_Calculator.Repositories.Dtos;
 using Microsoft.AspNetCore.Http;
@@ -13,16 +15,19 @@ namespace GPA_Calculator.Controllers
         private readonly IStudentRepository _studentRepository;
         private readonly ISubjectRepository _subjectRepository;
         private readonly IGradeRepository _gradeRepository;
+        private readonly ICalculateGPARepository _calculateGPARepository;
 
         public MainController(
             IStudentRepository studentRepository,
             ISubjectRepository subjectRepository,
-            IGradeRepository gradeRepository
+            IGradeRepository gradeRepository,
+            ICalculateGPARepository calculateGPARepository
             )
         {
             _studentRepository = studentRepository;
             _subjectRepository = subjectRepository;
             _gradeRepository = gradeRepository;
+            _calculateGPARepository = calculateGPARepository;
         }
 
         [HttpPost("student")]
@@ -75,6 +80,16 @@ namespace GPA_Calculator.Controllers
             }
 
             return Ok(result);
+        }
+
+        [HttpGet("/student/{studentId}/gpa")]
+        public async Task<IActionResult> CalulateGpa([FromRoute]int studentId)
+        {
+            var studentGrades = await _calculateGPARepository.GetStudentGrade(studentId);
+            var calculateGPA = new calculateGpa();
+            var StudentGPA = calculateGPA.Calculate(studentGrades);
+            return Ok(StudentGPA);
+
         }
 
     }

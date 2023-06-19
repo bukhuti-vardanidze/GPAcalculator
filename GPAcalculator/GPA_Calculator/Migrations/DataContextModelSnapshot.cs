@@ -107,8 +107,8 @@ namespace GPA_Calculator.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Credits")
-                        .HasColumnType("int");
+                    b.Property<double>("Credits")
+                        .HasColumnType("float");
 
                     b.Property<string>("SubjectName")
                         .IsRequired()

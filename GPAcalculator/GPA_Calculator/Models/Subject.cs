@@ -10,7 +10,7 @@ namespace GPA_Calculator.Models
         //[Required]
         //public int StudentId { get; set; }
         public string SubjectName { get; set; }
-        public int Credits { get; set; }
+        public double Credits { get; set; }
 
         //[ForeignKey("StudentId")]
         //public virtual Student student { get; set; }

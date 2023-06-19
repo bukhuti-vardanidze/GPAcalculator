@@ -1,3 +1,4 @@
+using GPA_Calculator.CalculorGpa;
 using GPA_Calculator.DB;
 using GPA_Calculator.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ builder.Services.AddControllers()
 builder.Services.AddScoped<IStudentRepository,StudentRepository>();
 builder.Services.AddScoped<ISubjectRepository,SubjectRepository>();
 builder.Services.AddScoped<IGradeRepository, GradeRepository>();
+builder.Services.AddScoped<ICalculateGPARepository, CalculateGPARepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

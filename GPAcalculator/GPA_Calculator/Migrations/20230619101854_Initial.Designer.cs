@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GPA_Calculator.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230616200701_Initial")]
+    [Migration("20230619101854_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -110,8 +110,8 @@ namespace GPA_Calculator.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Credits")
-                        .HasColumnType("int");
+                    b.Property<double>("Credits")
+                        .HasColumnType("float");
 
                     b.Property<string>("SubjectName")
                         .IsRequired()
