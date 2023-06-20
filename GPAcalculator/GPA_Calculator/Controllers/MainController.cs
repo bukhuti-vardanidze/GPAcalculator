@@ -108,5 +108,18 @@ namespace GPA_Calculator.Controllers
             return Ok(subject);
         }
 
+        [HttpGet("/Last3")]
+        public async Task<IActionResult> getLas3Subject()
+        {
+            var subject = await _statisticRepository.GetLast3Subject();
+
+            if (subject == null)
+            {
+                return NotFound("Subject Not Found");
+            }
+
+            return Ok(subject);
+        }
+
     }
 }
