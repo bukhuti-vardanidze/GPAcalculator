@@ -21,6 +21,7 @@ builder.Services.AddControllers()
 builder.Services.AddScoped<IStudentRepository,StudentRepository>();
 builder.Services.AddScoped<ISubjectRepository,SubjectRepository>();
 builder.Services.AddScoped<IGradeRepository, GradeRepository>();
+builder.Services.AddScoped<ICalculateGPARepository, CalculateGPARepository>();
 builder.Services.AddScoped<IStatisticRepository, StatisticRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

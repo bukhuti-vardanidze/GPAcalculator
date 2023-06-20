@@ -95,10 +95,16 @@ namespace GPA_Calculator.Controllers
 
         }
 
-        [HttpGet]
+        [HttpGet("/Top3")]
         public async Task<IActionResult> getTop3Subject()
         {
             var subject = await _statisticRepository.GetTop3Subject();
+
+            if(subject == null)
+            {
+                return NotFound("Subject Not Found");
+            }
+
             return Ok(subject);
         }
 
